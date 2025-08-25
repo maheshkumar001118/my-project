@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Drawing</title>
+    <style>
+        canvas { border: 2px solid black; cursor: crosshair; }
+        body { text-align: center; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Draw with Mouse</h2>
+    <canvas id="canvas" width="500" height="300"></canvas>
+    <br><br>
+    <button onclick="clearCanvas()">Clear</button>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        canvas.onmousedown = (e) => {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        };
+        canvas.onmousemove = (e) => {
+            if (drawing) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        };
+        canvas.onmouseup = () => drawing = false;
+        canvas.onmouseout = () => drawing = false;
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'black';
+        ctx.lineCap = 'round';
+    </script>
+</body>
+</html>
